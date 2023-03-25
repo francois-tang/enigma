@@ -7,6 +7,6 @@ class Rotor:
         self.positionDepart = positionDepart
         self.alphabet = alphabet
 
-
-test = Rotor(1, alphabet)
-print(test.positionDepart, test.alphabet)
+def test():      
+    test = Rotor(1, alphabet)
+    print(test.positionDepart, test.alphabet)
