@@ -36,8 +36,18 @@ def rotor_tourne(position_depart, alphabet):
     print(rotor.position_depart, rotor.alphabet)
     return rotor.position_depart, rotor.alphabet
 
+def transforme_caractere(caractere, alphabet_initial, rotor_alphabet):
+    index = alphabet_initial.index(caractere)
+    return rotor_alphabet[index]
+
 # MAIN
-rotor1 = creation_rotor(6)
+rotor1 = creation_rotor(4)
 print(rotor1)
+
+rotor1_alphabet = rotor1[1]
+premier_caractere = caractres_phrase_a_coder[0]
+caractere_transforme = transforme_caractere(premier_caractere, alphabet_initial, rotor1_alphabet)
+print("Le caractère transformé est :", caractere_transforme)
+
 rotor1 = rotor_tourne(rotor1[0], rotor1[1])
 print(rotor1)
