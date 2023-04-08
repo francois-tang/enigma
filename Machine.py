@@ -1,8 +1,10 @@
 import string
 
 # REFLECTEUR
+
 alphabet_initial = list(string.ascii_lowercase)
 alphabet_initial_inverse = alphabet_initial[::-1] #inverse les caractères a devient z, etc.
+
 
 # CLASS MACHINE
 
@@ -11,6 +13,7 @@ class Machine:
         self.rotor = rotor
         self.reflecteur = reflecteur
         self.tableau = tableau
+
 
 # INPUT PHRASE A CODER
 
@@ -28,13 +31,61 @@ if est_valide(phrase_a_coder):
     print("La phrase à coder est :", phrase_a_coder)
 else:
     while not est_valide(phrase_a_coder):
-        phrase_a_coder = input("Entrez à nouveau la phrase à coder qui doit être composée que de lettres :")
+        phrase_a_coder = input("Entrez à nouveau la phrase à coder qui doit être composée uniquement que de lettres :")
         phrase_a_coder = phrase_a_coder.lower()
     print("La phrase à coder est :", phrase_a_coder)
 
 ## LES CARACTERES DE LA PHRASE A CODER
 caractres_phrase_a_coder = list(phrase_a_coder)
 print(caractres_phrase_a_coder)
+
+
+# COUPLAGE
+
+def est_longueur_dix(chaine):
+    return len(chaine) == 10
+
+def caracteres_uniques(chaine): #Si le caractère est déjà dans la liste d'occurence, alors retourne False donc pas unique, sinon elle l'ajoute dans la liste d'occurences
+    occurrences = {}
+    for caractere in chaine:
+        if caractere in occurrences:
+            return False
+        else:
+            occurrences[caractere] = 1
+    return True
+
+
+while True:
+    # PREMIER COUPLAGE
+    premier_couple = input("Entrez 10 caractères uniques qui seront couplés avec les 10 suivants :")
+    premier_couple = premier_couple.lower()
+
+    if est_valide(premier_couple) and est_longueur_dix(premier_couple):
+        premier_couple = list(str(premier_couple))
+    else:
+        continue
+
+    # DEUXIEME COUPLAGE
+    deuxieme_couple = input("Entrez 10 caractères uniques qui seront couplés avec les 10 précédents :")
+    deuxieme_couple = deuxieme_couple.lower()
+
+    if est_valide(deuxieme_couple) and est_longueur_dix(deuxieme_couple):
+        deuxieme_couple = list(str(deuxieme_couple))
+    else:
+        continue
+    
+     # VERIFICATION DES COUPLES
+    couple_initial = premier_couple + deuxieme_couple
+    couple_initial_inverse = deuxieme_couple + premier_couple
+
+    if caracteres_uniques(couple_initial) and caracteres_uniques(couple_initial_inverse):
+        break
+    print("Les caractères ne sont pas uniques.")
+
+print("Les 10 premiers caractères sont :", premier_couple)
+print("Les 10 caractères suivants sont :", deuxieme_couple)
+print(couple_initial)
+print(couple_initial_inverse)
 
 
 # CLASS ROTOR
@@ -93,7 +144,7 @@ else:
 
 
 # DEMANDE UTILISATEUR DECLENCHEUR TOURNER ROTOR 1 à 3
-
+"""
 position_rotor1 = input("Entrez la position du rotor 1 :")
 if position_rotor1.isnumeric() == True:
     print("La position du rotor 1 est : " + position_rotor1)
@@ -119,7 +170,7 @@ else:
     while position_rotor3.isnumeric() == False:
         position_rotor3 = input("Ce n'est pas un nombre. Entrez à nouveau la position du rotor 3 entre 1 et 26 :")
         print("La position du rotor 3 est : " + position_rotor3)
-
+"""
 
 # MAIN
 
