@@ -1,6 +1,8 @@
 import string
 
+# REFLECTEUR
 alphabet_initial = list(string.ascii_lowercase)
+alphabet_initial_inverse = alphabet_initial[::-1] #inverse les caractères a devient z, etc.
 
 class Machine:
     def __init__(self, rotor, reflecteur, tableau):
@@ -70,10 +72,9 @@ else:
 
 
 # MAIN
-# ROTOR 1
+## ROTOR 1
 rotor1 = creation_rotor(int(position_rotor1))
-print("Le rotor 1 est créé comme suit : ")
-print(rotor1[1])
+print("Le rotor 1 est créé comme suit : ", rotor1[1])
 
 rotor1_alphabet = rotor1[1]
 premier_caractere = caractres_phrase_a_coder[0]
@@ -81,22 +82,42 @@ caractere_transforme = transforme_caractere(premier_caractere, alphabet_initial,
 print("Le caractère transformé au rotor 1 est :", caractere_transforme)
 
 rotor1 = rotor_tourne(rotor1[0], rotor1[1])
-print(rotor1)
+rotor1_alphabet = rotor1[1]
+print(rotor1_alphabet)
 
-# ROTOR 2
+## ROTOR 2
 rotor2 = creation_rotor(int(position_rotor2))
-print("Le rotor 2 est créé comme suit : ")
-print(rotor2[1])
+print("Le rotor 2 est créé comme suit : ", rotor2[1])
 
 rotor2_alphabet = rotor2[1]
 caractere_transforme = transforme_caractere(caractere_transforme, alphabet_initial, rotor2_alphabet)
-print("Le caractère transformé au rotor 2 est:", caractere_transforme)
+print("Le caractère transformé au rotor 2 est :", caractere_transforme)
 
-# ROTOR 3
+## ROTOR 3
 rotor3 = creation_rotor(int(position_rotor3))
-print("Le rotor 3 est créé comme suit : ")
-print(rotor3[1])
+print("Le rotor 3 est créé comme suit : ", rotor3[1])
 
-rotor2_alphabet = rotor2[1]
-caractere_transforme = transforme_caractere(caractere_transforme, alphabet_initial, rotor2_alphabet)
+rotor3_alphabet = rotor3[1]
+caractere_transforme = transforme_caractere(caractere_transforme, alphabet_initial, rotor3_alphabet)
 print("Le caractère transformé au rotor 3 est :", caractere_transforme)
+
+
+# REFLECTEUR
+caractere_transforme = transforme_caractere(caractere_transforme, alphabet_initial, alphabet_initial_inverse)
+print("Le caractère sorti du réflecteur est :", caractere_transforme)
+
+
+## ROTOR 3 RETOUR
+print("La position du rotor 3 est :", rotor3_alphabet)
+caractere_transforme = transforme_caractere(caractere_transforme, alphabet_initial, rotor3_alphabet)
+print("Le caractère transformé au rotor 3 retour est :", caractere_transforme)
+
+## ROTOR 2 RETOUR
+print("La position du rotor 2 est :", rotor2_alphabet)
+caractere_transforme = transforme_caractere(caractere_transforme, alphabet_initial, rotor2_alphabet)
+print("Le caractère transformé au rotor 2 retour est :", caractere_transforme)
+
+## ROTOR 1 RETOUR
+print("La position du rotor 1 est :", rotor1_alphabet)
+caractere_transforme = transforme_caractere(caractere_transforme, alphabet_initial, rotor1_alphabet)
+print("Le caractère transformé au rotor 1 retour est :", caractere_transforme)
