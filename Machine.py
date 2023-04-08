@@ -28,26 +28,75 @@ def decale_alphabet(alphabet):
 
 def creation_rotor(position_depart):
     rotor = Rotor(position_depart, alphabet_initial[position_depart-1:] + alphabet_initial[:position_depart+1]) #car a = 0, etc. donc on décale
-    print(rotor.position_depart, rotor.alphabet)
     return rotor.position_depart, rotor.alphabet
 
 def rotor_tourne(position_depart, alphabet):
     rotor = Rotor(position_depart, decale_alphabet(alphabet))
-    print(rotor.position_depart, rotor.alphabet)
+    print("Le rotor tourne")
     return rotor.position_depart, rotor.alphabet
 
 def transforme_caractere(caractere, alphabet_initial, rotor_alphabet):
     index = alphabet_initial.index(caractere)
     return rotor_alphabet[index]
 
+
+# POSITION ROTOR 1 à 3
+
+position_rotor1 = input("Entrez la position du rotor 1 :")
+if position_rotor1.isnumeric() == True:
+    print("La position du rotor 1 est : " + position_rotor1)
+else:
+    while position_rotor1.isnumeric() == False:
+        position_rotor1 = input("Ce n'est pas un nombre. Entrez à nouveau la position du rotor 1 entre 1 et 26 :")
+        print("La position du rotor 1 est : " + position_rotor1)
+
+
+position_rotor2 = input("Entrez la position du rotor 2 :")
+if position_rotor2.isnumeric() == True:
+    print("La position du rotor 2 est : " + position_rotor2)
+else:
+    while position_rotor2.isnumeric() == False:
+        position_rotor2 = input("Ce n'est pas un nombre. Entrez à nouveau la position du rotor 2 entre 1 et 26 :")
+        print("La position du rotor 2 est : " + position_rotor2)
+
+
+position_rotor3 = input("Entrez la position du rotor 3 :")
+if position_rotor3.isnumeric() == True:
+    print("La position du rotor 3 est : " + position_rotor3)
+else:
+    while position_rotor3.isnumeric() == False:
+        position_rotor3 = input("Ce n'est pas un nombre. Entrez à nouveau la position du rotor 3 entre 1 et 26 :")
+        print("La position du rotor 3 est : " + position_rotor3)
+
+
 # MAIN
-rotor1 = creation_rotor(4)
-print(rotor1)
+# ROTOR 1
+rotor1 = creation_rotor(int(position_rotor1))
+print("Le rotor 1 est créé comme suit : ")
+print(rotor1[1])
 
 rotor1_alphabet = rotor1[1]
 premier_caractere = caractres_phrase_a_coder[0]
 caractere_transforme = transforme_caractere(premier_caractere, alphabet_initial, rotor1_alphabet)
-print("Le caractère transformé est :", caractere_transforme)
+print("Le caractère transformé au rotor 1 est :", caractere_transforme)
 
 rotor1 = rotor_tourne(rotor1[0], rotor1[1])
 print(rotor1)
+
+# ROTOR 2
+rotor2 = creation_rotor(int(position_rotor2))
+print("Le rotor 2 est créé comme suit : ")
+print(rotor2[1])
+
+rotor2_alphabet = rotor2[1]
+caractere_transforme = transforme_caractere(caractere_transforme, alphabet_initial, rotor2_alphabet)
+print("Le caractère transformé au rotor 2 est:", caractere_transforme)
+
+# ROTOR 3
+rotor3 = creation_rotor(int(position_rotor3))
+print("Le rotor 3 est créé comme suit : ")
+print(rotor3[1])
+
+rotor2_alphabet = rotor2[1]
+caractere_transforme = transforme_caractere(caractere_transforme, alphabet_initial, rotor2_alphabet)
+print("Le caractère transformé au rotor 3 est :", caractere_transforme)
