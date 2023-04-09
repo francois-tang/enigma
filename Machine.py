@@ -140,35 +140,21 @@ while (position_rotor3.isnumeric() == False) or (est_entre_1_a_26(int(position_r
 print("La position du rotor 3 est : ", position_rotor3)
 
 
-# DEMANDE UTILISATEUR DECLENCHEUR TOURNER ROTOR 1 à 3
-###
-"""
-position_rotor1 = input("Entrez la position du rotor 1 :")
-if position_rotor1.isnumeric() == True:
-    print("La position du rotor 1 est : " + position_rotor1)
-else:
-    while position_rotor1.isnumeric() == False:
-        position_rotor1 = input("Ce n'est pas un nombre. Entrez à nouveau la position du rotor 1 entre 1 et 26 :")
-        print("La position du rotor 1 est : " + position_rotor1)
+# DEMANDE UTILISATEUR DECLENCHEUR POUR TOURNER LES ROTORS 1 à 3 (au final que les rotors 2 et 3 car le 1 tourne tout le temps)
+
+declencheur_rotor2 = input("Entrez le déclencheur du rotor 2 :")
+declencheur_rotor2 = declencheur_rotor2.lower()
+while (est_valide(declencheur_rotor2) == False) or ((len(declencheur_rotor2) == 1) == False):
+    declencheur_rotor2 = input("Le déclencheur n'est pas correct. Entrez à nouveau la lettre qui déclenchera la rotation du rotor 2 :")
+print("Le déclencheur du rotor 2 est : ", declencheur_rotor2)
 
 
-position_rotor2 = input("Entrez la position du rotor 2 :")
-if position_rotor2.isnumeric() == True:
-    print("La position du rotor 2 est : " + position_rotor2)
-else:
-    while position_rotor2.isnumeric() == False:
-        position_rotor2 = input("Ce n'est pas un nombre. Entrez à nouveau la position du rotor 2 entre 1 et 26 :")
-        print("La position du rotor 2 est : " + position_rotor2)
+declencheur_rotor3 = input("Entrez le déclencheur du rotor 3 :")
+declencheur_rotor3 = declencheur_rotor3.lower()
+while (est_valide(declencheur_rotor3) == False) or ((len(declencheur_rotor3) == 1) == False):
+    declencheur_rotor3 = input("Le déclencheur n'est pas correct. Entrez à nouveau la lettre qui déclenchera la rotation du rotor 3 :")
+print("Le déclencheur du rotor 3 est : ", declencheur_rotor3)
 
-
-position_rotor3 = input("Entrez la position du rotor 3 :")
-if position_rotor3.isnumeric() == True:
-    print("La position du rotor 3 est : " + position_rotor3)
-else:
-    while position_rotor3.isnumeric() == False:
-        position_rotor3 = input("Ce n'est pas un nombre. Entrez à nouveau la position du rotor 3 entre 1 et 26 :")
-        print("La position du rotor 3 est : " + position_rotor3)
-"""
 
 # MAIN
 
