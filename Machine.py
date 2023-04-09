@@ -110,10 +110,14 @@ def rotor_tourne(position_depart, alphabet):
     print("Le rotor tourne")
     return rotor.position_depart, rotor.alphabet
 
-def transforme_caractere(caractere, alphabet_initial, rotor_alphabet):
+def transforme_caractere(caractere, alphabet_initial, rotor_alphabet, inverse=False):
     if caractere in alphabet_initial:
-        index = alphabet_initial.index(caractere)
-        return rotor_alphabet[index]
+        index_alphabet = alphabet_initial.index(caractere)
+        index_rotor = rotor_alphabet.index(caractere)
+        if inverse:
+            return alphabet_initial[index_rotor]
+        else:
+            return rotor_alphabet[index_alphabet]
     else:
         return caractere
 
@@ -201,7 +205,7 @@ for caractere_a_coder in caractres_phrase_a_coder:
     print("Le caractère transformé au rotor 1 est :", caractere_transforme)
 
     # VERIFICATION ROTATION ROTOR 2
-    if str(rotor1_alphabet[0]) == str(declencheur_rotor2):
+    if rotor1_alphabet[0] == declencheur_rotor2:
         rotor2 = rotor_tourne(rotor2[0], rotor2[1])
         rotor2_alphabet = rotor2[1]
         rotations_rotor2 += 1
@@ -213,7 +217,7 @@ for caractere_a_coder in caractres_phrase_a_coder:
     print("Le caractère transformé au rotor 2 est :", caractere_transforme)
 
     # VERIFICATION ROTATION ROTOR 3
-    if (str(rotor2_alphabet[0]) == str(declencheur_rotor3)) and (rotations_rotor2 % 26 == 0): #on vérifie si la 1ère lettre de rotor actuellement correspond au déclencheur + le % 26 permet de forcer à ce que le rotor ne tourne pas plusieurs fois
+    if (rotor2_alphabet[0]) == str(declencheur_rotor3) and (rotations_rotor2 % 26 == 0): #on vérifie si la 1ère lettre de rotor actuellement correspond au déclencheur + le % 26 permet de forcer à ce que le rotor ne tourne pas plusieurs fois
         rotor3 = rotor_tourne(rotor3[0], rotor3[1])
         rotor3_alphabet = rotor3[1]
         rotations_rotor3 += 1
@@ -232,17 +236,17 @@ for caractere_a_coder in caractres_phrase_a_coder:
 
     ## ROTOR 3 RETOUR
     print("La position du rotor 3 est :", rotor3_alphabet)
-    caractere_transforme = transforme_caractere(caractere_transforme, alphabet_initial, rotor3_alphabet)
+    caractere_transforme = transforme_caractere(caractere_transforme, alphabet_initial, rotor3_alphabet, inverse=True)
     print("Le caractère transformé au rotor 3 retour est :", caractere_transforme)
 
     ## ROTOR 2 RETOUR
     print("La position du rotor 2 est :", rotor2_alphabet)
-    caractere_transforme = transforme_caractere(caractere_transforme, alphabet_initial, rotor2_alphabet)
+    caractere_transforme = transforme_caractere(caractere_transforme, alphabet_initial, rotor2_alphabet, inverse=True)
     print("Le caractère transformé au rotor 2 retour est :", caractere_transforme)
 
     ## ROTOR 1 RETOUR
     print("La position du rotor 1 est :", rotor1_alphabet)
-    caractere_transforme = transforme_caractere(caractere_transforme, alphabet_initial, rotor1_alphabet)
+    caractere_transforme = transforme_caractere(caractere_transforme, alphabet_initial, rotor1_alphabet, inverse=True)
     print("Le caractère transformé au rotor 1 retour est :", caractere_transforme)
 
 
