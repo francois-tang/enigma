@@ -26,6 +26,7 @@ def est_valide(chaine):
 
 phrase_a_coder = input("Entrez la phrase à coder :")
 phrase_a_coder = phrase_a_coder.lower()
+phrase_finale_codee = []
 
 if est_valide(phrase_a_coder):
     print("La phrase à coder est :", phrase_a_coder)
@@ -113,37 +114,34 @@ def transforme_caractere(caractere, alphabet_initial, rotor_alphabet):
     index = alphabet_initial.index(caractere)
     return rotor_alphabet[index]
 
+def est_entre_1_a_26(caractere):
+    if caractere in range(1,27):
+        return True
+    else:
+        return False
 
 # DEMANDE UTILISATEUR POSITION ROTOR 1 à 3
 
 position_rotor1 = input("Entrez la position du rotor 1 :")
-if position_rotor1.isnumeric() == True:
-    print("La position du rotor 1 est : " + position_rotor1)
-else:
-    while position_rotor1.isnumeric() == False:
-        position_rotor1 = input("Ce n'est pas un nombre. Entrez à nouveau la position du rotor 1 entre 1 et 26 :")
-        print("La position du rotor 1 est : " + position_rotor1)
+while (position_rotor1.isnumeric() == False) or (est_entre_1_a_26(int(position_rotor1)) == False):
+    position_rotor1 = input("Ce n'est pas un nombre. Entrez à nouveau la position du rotor 1 entre 1 et 26 :")
+print("La position du rotor 1 est : ", position_rotor1)
 
 
 position_rotor2 = input("Entrez la position du rotor 2 :")
-if position_rotor2.isnumeric() == True:
-    print("La position du rotor 2 est : " + position_rotor2)
-else:
-    while position_rotor2.isnumeric() == False:
-        position_rotor2 = input("Ce n'est pas un nombre. Entrez à nouveau la position du rotor 2 entre 1 et 26 :")
-        print("La position du rotor 2 est : " + position_rotor2)
+while (position_rotor2.isnumeric() == False) or (est_entre_1_a_26(int(position_rotor2)) == False):
+    position_rotor2 = input("Ce n'est pas un nombre. Entrez à nouveau la position du rotor 2 entre 1 et 26 :")
+print("La position du rotor 2 est : ", position_rotor2)
 
 
 position_rotor3 = input("Entrez la position du rotor 3 :")
-if position_rotor3.isnumeric() == True:
-    print("La position du rotor 3 est : " + position_rotor3)
-else:
-    while position_rotor3.isnumeric() == False:
-        position_rotor3 = input("Ce n'est pas un nombre. Entrez à nouveau la position du rotor 3 entre 1 et 26 :")
-        print("La position du rotor 3 est : " + position_rotor3)
+while (position_rotor3.isnumeric() == False) or (est_entre_1_a_26(int(position_rotor3)) == False):
+    position_rotor3 = input("Ce n'est pas un nombre. Entrez à nouveau la position du rotor 3 entre 1 et 26 :")
+print("La position du rotor 3 est : ", position_rotor3)
 
 
 # DEMANDE UTILISATEUR DECLENCHEUR TOURNER ROTOR 1 à 3
+###
 """
 position_rotor1 = input("Entrez la position du rotor 1 :")
 if position_rotor1.isnumeric() == True:
@@ -186,10 +184,17 @@ print("Le rotor 2 est créé comme suit : ", rotor2[1])
 rotor3 = creation_rotor(int(position_rotor3))
 print("Le rotor 3 est créé comme suit : ", rotor3[1])
 
+
+## PASSAGE LETTRE DANS COUPLAGE AU DEBUT
+caractere_a_coder = caractres_phrase_a_coder[0]
+print("Le caractère avant couplage : ", caractere_a_coder)
+caractere_a_coder = transforme_caractere(caractere_a_coder, couple_initial, couple_initial_inverse)
+print("Le caractère après couplage : ", caractere_a_coder)
+
+
 ## PASSAGE LETTRE DANS ROTOR 1
 rotor1_alphabet = rotor1[1]
-premier_caractere = caractres_phrase_a_coder[0]
-caractere_transforme = transforme_caractere(premier_caractere, alphabet_initial, rotor1_alphabet)
+caractere_transforme = transforme_caractere(caractere_a_coder, alphabet_initial, rotor1_alphabet)
 print("Le caractère transformé au rotor 1 est :", caractere_transforme)
 
 rotor1 = rotor_tourne(rotor1[0], rotor1[1])
@@ -226,3 +231,21 @@ print("Le caractère transformé au rotor 2 retour est :", caractere_transforme)
 print("La position du rotor 1 est :", rotor1_alphabet)
 caractere_transforme = transforme_caractere(caractere_transforme, alphabet_initial, rotor1_alphabet)
 print("Le caractère transformé au rotor 1 retour est :", caractere_transforme)
+
+
+## PASSAGE LETTRE DANS COUPLAGE A LA FIN
+print("Le caractère avant couplage : ", caractere_transforme)
+caractere_transforme = transforme_caractere(caractere_transforme, couple_initial, couple_initial_inverse)
+print("Le caractère après couplage : ", caractere_transforme)
+
+phrase_finale_codee.append(caractere_transforme)
+
+
+# AFFICHAGE FINAL
+
+print("Le mot à coder était : ", phrase_a_coder)
+print("Le mot codé est : ", ' '.join(phrase_finale_codee))
+
+### FOR CHAQUE LETTRE, FAIRE CA
+
+### FAIRE 8 ROTORS
