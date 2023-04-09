@@ -111,8 +111,11 @@ def rotor_tourne(position_depart, alphabet):
     return rotor.position_depart, rotor.alphabet
 
 def transforme_caractere(caractere, alphabet_initial, rotor_alphabet):
-    index = alphabet_initial.index(caractere)
-    return rotor_alphabet[index]
+    if caractere in alphabet_initial:
+        index = alphabet_initial.index(caractere)
+        return rotor_alphabet[index]
+    else:
+        return caractere
 
 def est_entre_1_a_26(caractere):
     if caractere in range(1,27):
@@ -156,7 +159,7 @@ while (est_valide(declencheur_rotor3) == False) or ((len(declencheur_rotor3) == 
 print("Le déclencheur du rotor 3 est : ", declencheur_rotor3)
 
 
-# MAIN
+# CREATION DES ROTORS
 
 ## CREATION ROTOR 1
 rotor1 = creation_rotor(int(position_rotor1))
@@ -171,67 +174,88 @@ rotor3 = creation_rotor(int(position_rotor3))
 print("Le rotor 3 est créé comme suit : ", rotor3[1])
 
 
-## PASSAGE LETTRE DANS COUPLAGE AU DEBUT
-caractere_a_coder = caractres_phrase_a_coder[0]
-print("Le caractère avant couplage : ", caractere_a_coder)
-caractere_a_coder = transforme_caractere(caractere_a_coder, couple_initial, couple_initial_inverse)
-print("Le caractère après couplage : ", caractere_a_coder)
+# MAIN
+
+rotations_rotor2 = 0
+rotations_rotor3 = 0
+
+for caractere_a_coder in caractres_phrase_a_coder:
+    print("\n##### NOUVELLE LETTRE #####")
+
+    ## PASSAGE LETTRE DANS COUPLAGE AU DEBUT
+    print("Le caractère avant couplage : ", caractere_a_coder)
+    caractere_a_coder = transforme_caractere(caractere_a_coder, couple_initial, couple_initial_inverse)
+    print("Le caractère après couplage : ", caractere_a_coder)
+
+    rotor1 = rotor_tourne(rotor1[0], rotor1[1])
+    rotor1_alphabet = rotor1[1]
+    print("La nouvelle posisition du rotor : ", rotor1_alphabet)
+
+    res = (str(rotor1_alphabet[0]) == str(declencheur_rotor2))
+    print(res)
+
+    ## PASSAGE LETTRE DANS ROTOR 1
+    rotor1_alphabet = rotor1[1]
+    print("La position du rotor 1 est :", rotor1_alphabet)
+    caractere_transforme = transforme_caractere(caractere_a_coder, alphabet_initial, rotor1_alphabet)
+    print("Le caractère transformé au rotor 1 est :", caractere_transforme)
+
+    # VERIFICATION ROTATION ROTOR 2
+    if str(rotor1_alphabet[0]) == str(declencheur_rotor2):
+        rotor2 = rotor_tourne(rotor2[0], rotor2[1])
+        rotor2_alphabet = rotor2[1]
+        rotations_rotor2 += 1
+    
+    ## PASSAGE LETTRE DANS ROTOR 2
+    rotor2_alphabet = rotor2[1]
+    print("La position du rotor 2 est :", rotor2_alphabet)
+    caractere_transforme = transforme_caractere(caractere_transforme, alphabet_initial, rotor2_alphabet)
+    print("Le caractère transformé au rotor 2 est :", caractere_transforme)
+
+    # VERIFICATION ROTATION ROTOR 3
+    if (str(rotor2_alphabet[0]) == str(declencheur_rotor3)) and (rotations_rotor2 % 26 == 0): #on vérifie si la 1ère lettre de rotor actuellement correspond au déclencheur + le % 26 permet de forcer à ce que le rotor ne tourne pas plusieurs fois
+        rotor3 = rotor_tourne(rotor3[0], rotor3[1])
+        rotor3_alphabet = rotor3[1]
+        rotations_rotor3 += 1
+    
+    ## PASSAGE LETTRE DANS ROTOR 3
+    rotor3_alphabet = rotor3[1]
+    print("La position du rotor 3 est :", rotor3_alphabet)
+    caractere_transforme = transforme_caractere(caractere_transforme, alphabet_initial, rotor3_alphabet)
+    print("Le caractère transformé au rotor 3 est :", caractere_transforme)
 
 
-## PASSAGE LETTRE DANS ROTOR 1
-rotor1_alphabet = rotor1[1]
-caractere_transforme = transforme_caractere(caractere_a_coder, alphabet_initial, rotor1_alphabet)
-print("Le caractère transformé au rotor 1 est :", caractere_transforme)
-
-rotor1 = rotor_tourne(rotor1[0], rotor1[1])
-rotor1_alphabet = rotor1[1]
-print(rotor1_alphabet)
-
-## PASSAGE LETTRE DANS ROTOR 2
-rotor2_alphabet = rotor2[1]
-caractere_transforme = transforme_caractere(caractere_transforme, alphabet_initial, rotor2_alphabet)
-print("Le caractère transformé au rotor 2 est :", caractere_transforme)
-
-## PASSAGE LETTRE DANS ROTOR 3
-rotor3_alphabet = rotor3[1]
-caractere_transforme = transforme_caractere(caractere_transforme, alphabet_initial, rotor3_alphabet)
-print("Le caractère transformé au rotor 3 est :", caractere_transforme)
+    # REFLECTEUR
+    caractere_transforme = transforme_caractere(caractere_transforme, alphabet_initial, alphabet_initial_inverse)
+    print("\nLe caractère sorti du réflecteur est :", caractere_transforme, "\n")
 
 
-# REFLECTEUR
-caractere_transforme = transforme_caractere(caractere_transforme, alphabet_initial, alphabet_initial_inverse)
-print("Le caractère sorti du réflecteur est :", caractere_transforme)
+    ## ROTOR 3 RETOUR
+    print("La position du rotor 3 est :", rotor3_alphabet)
+    caractere_transforme = transforme_caractere(caractere_transforme, alphabet_initial, rotor3_alphabet)
+    print("Le caractère transformé au rotor 3 retour est :", caractere_transforme)
+
+    ## ROTOR 2 RETOUR
+    print("La position du rotor 2 est :", rotor2_alphabet)
+    caractere_transforme = transforme_caractere(caractere_transforme, alphabet_initial, rotor2_alphabet)
+    print("Le caractère transformé au rotor 2 retour est :", caractere_transforme)
+
+    ## ROTOR 1 RETOUR
+    print("La position du rotor 1 est :", rotor1_alphabet)
+    caractere_transforme = transforme_caractere(caractere_transforme, alphabet_initial, rotor1_alphabet)
+    print("Le caractère transformé au rotor 1 retour est :", caractere_transforme)
 
 
-## ROTOR 3 RETOUR
-print("La position du rotor 3 est :", rotor3_alphabet)
-caractere_transforme = transforme_caractere(caractere_transforme, alphabet_initial, rotor3_alphabet)
-print("Le caractère transformé au rotor 3 retour est :", caractere_transforme)
+    ## PASSAGE LETTRE DANS COUPLAGE A LA FIN
+    print("Le caractère avant couplage : ", caractere_transforme)
+    caractere_transforme = transforme_caractere(caractere_transforme, couple_initial, couple_initial_inverse)
+    print("Le caractère après couplage : ", caractere_transforme)
+    
 
-## ROTOR 2 RETOUR
-print("La position du rotor 2 est :", rotor2_alphabet)
-caractere_transforme = transforme_caractere(caractere_transforme, alphabet_initial, rotor2_alphabet)
-print("Le caractère transformé au rotor 2 retour est :", caractere_transforme)
-
-## ROTOR 1 RETOUR
-print("La position du rotor 1 est :", rotor1_alphabet)
-caractere_transforme = transforme_caractere(caractere_transforme, alphabet_initial, rotor1_alphabet)
-print("Le caractère transformé au rotor 1 retour est :", caractere_transforme)
-
-
-## PASSAGE LETTRE DANS COUPLAGE A LA FIN
-print("Le caractère avant couplage : ", caractere_transforme)
-caractere_transforme = transforme_caractere(caractere_transforme, couple_initial, couple_initial_inverse)
-print("Le caractère après couplage : ", caractere_transforme)
-
-phrase_finale_codee.append(caractere_transforme)
+    phrase_finale_codee.append(caractere_transforme)
 
 
 # AFFICHAGE FINAL
 
 print("Le mot à coder était : ", phrase_a_coder)
-print("Le mot codé est : ", ' '.join(phrase_finale_codee))
-
-### FOR CHAQUE LETTRE, FAIRE CA
-
-### FAIRE 8 ROTORS
+print("Le mot codé est : ", ''.join(phrase_finale_codee))
